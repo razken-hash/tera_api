@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const authRouter = require("./routes/auth");
 const documentRouter = require("./routes/document");
 const cors = require("cors");
+const socket_io = require("socket.io");
 
 const PORT = 3001;
 const DB = "mongodb+srv://razken-hash:a8Tx6Oj4SojxZ2ca@tera-cluster.qoyzisk.mongodb.net/?retryWrites=true&w=majority&appName=tera-cluster";
@@ -19,7 +20,24 @@ app.use(express.json());
 app.use(authRouter);
 app.use(documentRouter);
 
-app.listen(PORT, "0.0.0.0", () => {
+const server = http.createServer(app);
+
+const socketIO = socket_io(server);
+
+socketIO.on(
+    "connection", (socket) => {
+        socket.on("join", (documentId) => {
+            console.log("Joined");
+        });
+
+        socket.on("typing", (data) => {
+            console.log(data);
+            socket.broadcast.emit("changes", data)
+        });
+    },
+);
+
+server.listen(PORT, "0.0.0.0", () => {
     console.log("HELLO TERA!");
 })
 
