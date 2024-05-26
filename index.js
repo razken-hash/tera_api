@@ -7,7 +7,7 @@ const documentRouter = require("./routes/document");
 const cors = require("cors");
 const socket_io = require("socket.io");
 
-const PORT = 3001;
+const PORT = 10000;
 const DB = "mongodb+srv://razken-hash:a8Tx6Oj4SojxZ2ca@tera-cluster.qoyzisk.mongodb.net/?retryWrites=true&w=majority&appName=tera-cluster";
 
 mongoose.connect(DB).then(() => {
