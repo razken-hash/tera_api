@@ -2,7 +2,6 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const authMiddleware = require("../middlewares/auth");
-const { default: mongoose } = require("mongoose");
 
 const authRouter = express.Router();
 
